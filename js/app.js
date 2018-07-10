@@ -61,15 +61,31 @@ addEventListener("DOMContentLoaded", function (event) {
             }
 
         }
+
+
+        this.computeNextGeneration=()=>{
+            this.nextGeneration=[]
+            for(let i =0 ;i<this.cells.length;i++){
+                for(let j=0;j<this.cells[i].length;j++){
+                   this.nextGeneration.push (this.computeCellNextState(i,j))
+                }
+            }
+
+
+            }
+
+
     }
 
     let game = new GameOfLife(10, 10);
 
     game.createBoard();
     console.log(game.cells);
-    console.log(game.cells[2][1]);
+    console.log(game.cells[1][1]);
     game.firstGlider()
-    console.log(game.computeCellNextState(2,1))
+    console.log(game.computeCellNextState(1,1))
+game.computeNextGeneration()
+    console.log(game.nextGeneration)
 
 
 });
