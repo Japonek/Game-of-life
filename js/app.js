@@ -60,28 +60,29 @@ addEventListener("DOMContentLoaded", function (event) {
             if (y !== 0 && this.cells[x][y - 1].className === "live") {
                 count++
             }
-            if (this.width > y && this.cells[x][y + 1] === "live") {
+
+            if (this.width-1 > y && this.cells[x][y + 1].className === "live") {
                 count++
             }
-            if (this.height > x && this.cells[x + 1][y] === "live") {
+            if (this.height-1 > x && this.cells[x + 1][y].className === "live") {
                 count++
             }
             if (x !== 0 && y !== 0 && this.cells[x - 1][y - 1].className === "live") {
                 count++
             }
-            if (this.width > y && this.width > x && this.cells[x + 1][y + 1] === "live") {
+            if (this.width-1 > y && this.height-1 > x && this.cells[x + 1][y + 1].className === "live") {
                 count++
             }
-            if (x !== 0 && this.width > y && this.cells[x - 1][y].className === "live") {
+            if (x !== 0 && this.width-1 > y && this.cells[x - 1][y+1].className === "live") {
                 count++
             }
-            if (y !== 0 && this.width > x && this.cells[x - 1][y].className === "live") {
+            if (y !== 0 && this.height-1> x && this.cells[x+1][y-1].className === "live") {
                 count++
             }
-            console.log(count)
+
 
             if ((this.cells[x][y].className === "" && count === 3) ||
-                (this.cells[x][y].className = "live" && count === 2 || count === 3)) {
+                (this.cells[x][y].className === "live" && count === 2 || count === 3)) {
                 return 1;
             } else {
                 return 0;
@@ -91,13 +92,13 @@ addEventListener("DOMContentLoaded", function (event) {
 
 
         this.computeNextGeneration = () => {
-            /*      this.nextGeneration = []
+              this.nextGeneration = []
                   for (let i = 0; i < this.cells.length; i++) {
                       for (let j = 0; j < this.cells[i].length; j++) {
                           this.nextGeneration.push(this.computeCellNextState(i, j))
                       }
-                  }*/
-
+                  }
+console.log(this.nextGeneration)
 
         }
 
@@ -107,10 +108,10 @@ addEventListener("DOMContentLoaded", function (event) {
     let game = new GameOfLife(10, 10);
 
     game.createBoard();
-    console.log(game.cells[0][1]);
+    console.log(game.cells[3][3]);
     game.firstGlider()
-    game.computeCellNextState(0, 0)
-    //  console.log(game.nextGeneration)
+    game.computeCellNextState(3, 3)
+    game.computeNextGeneration()
 
 
 });
