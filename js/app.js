@@ -35,24 +35,51 @@ addEventListener("DOMContentLoaded", function (event) {
 
 
         this.computeCellNextState = (x, y) => {
+            /*
+                        this.neigbours = [
+                            this.cells[x - 1][y - 1],y
+                            this.cells[x + 1][y + 1],y
+                            this.cells[x - 1][y + 1],y
+                            this.cells[x + 1][y - 1],
+                            this.cells[x - 1][y],y
+                            this.cells[x + 1][y],y
+                            this.cells[x][y - 1],y
+                            this.cells[x][y + 1]y
+                        ];
+                        let count = 0;
+                        for (let i = 0; i < this.neigbours.length; i++) {
+                            if (this.neigbours[i].className === "live") {
+                                count++
+                            }
 
-            this.neigbours = [
-                this.cells[x - 1][y - 1],
-                this.cells[x + 1][y + 1],
-                this.cells[x - 1][y + 1],
-                this.cells[x + 1][y - 1],
-                this.cells[x - 1][y],
-                this.cells[x + 1][y],
-                this.cells[x][y - 1],
-                this.cells[x][y + 1]
-            ];
+                        }*/
             let count = 0;
-            for (let i = 0; i < this.neigbours.length; i++) {
-                if (this.neigbours[i].className === "live") {
-                    count++
-                }
-
+            if (x !== 0 && this.cells[x - 1][y].className === "live") {
+                count++
             }
+            if (y !== 0 && this.cells[x][y - 1].className === "live") {
+                count++
+            }
+            if (this.width > y && this.cells[x][y + 1] === "live") {
+                count++
+            }
+            if (this.height > x && this.cells[x + 1][y] === "live") {
+                count++
+            }
+            if (x !== 0 && y !== 0 && this.cells[x - 1][y - 1].className === "live") {
+                count++
+            }
+            if (this.width > y && this.width > x && this.cells[x + 1][y + 1] === "live") {
+                count++
+            }
+            if (x !== 0 && this.width > y && this.cells[x - 1][y].className === "live") {
+                count++
+            }
+            if (y !== 0 && this.width > x && this.cells[x - 1][y].className === "live") {
+                count++
+            }
+            console.log(count)
+
             if ((this.cells[x][y].className === "" && count === 3) ||
                 (this.cells[x][y].className = "live" && count === 2 || count === 3)) {
                 return 1;
@@ -63,16 +90,16 @@ addEventListener("DOMContentLoaded", function (event) {
         }
 
 
-        this.computeNextGeneration=()=>{
-            this.nextGeneration=[]
-            for(let i =0 ;i<this.cells.length;i++){
-                for(let j=0;j<this.cells[i].length;j++){
-                   this.nextGeneration.push (this.computeCellNextState(i,j))
-                }
-            }
+        this.computeNextGeneration = () => {
+            /*      this.nextGeneration = []
+                  for (let i = 0; i < this.cells.length; i++) {
+                      for (let j = 0; j < this.cells[i].length; j++) {
+                          this.nextGeneration.push(this.computeCellNextState(i, j))
+                      }
+                  }*/
 
 
-            }
+        }
 
 
     }
@@ -80,12 +107,10 @@ addEventListener("DOMContentLoaded", function (event) {
     let game = new GameOfLife(10, 10);
 
     game.createBoard();
-    console.log(game.cells);
-    console.log(game.cells[1][1]);
+    console.log(game.cells[0][1]);
     game.firstGlider()
-    console.log(game.computeCellNextState(1,1))
-game.computeNextGeneration()
-    console.log(game.nextGeneration)
+    game.computeCellNextState(0, 0)
+    //  console.log(game.nextGeneration)
 
 
 });
