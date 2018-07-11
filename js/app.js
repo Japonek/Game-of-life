@@ -9,12 +9,12 @@ addEventListener("DOMContentLoaded", function (event) {
         this.createBoard = () => {
             this.board.style.width = this.width * 10 + "px";
             this.board.style.height = this.height * 10 + "px";
-            for (let j = 0; j < boardHeight; j++) {
-                this.cells[j] = [];
-                for (let i = 0; i < this.width; i++) {
+            for (let i = 0; i < boardHeight; i++) {
+                this.cells[i] = [];
+                for (let j = 0; j < this.width; j++) {
                     let singleDiv = document.createElement("div");
                     this.board.appendChild(singleDiv);
-                    this.cells[j].push(singleDiv);
+                    this.cells[i].push(singleDiv);
                     singleDiv.addEventListener("click", function () {
                         (singleDiv.className == "live") ? singleDiv.classList.remove("live") : singleDiv.classList.add("live");
                     })
@@ -94,18 +94,27 @@ addEventListener("DOMContentLoaded", function (event) {
         this.computeNextGeneration = () => {
               this.nextGeneration = []
                   for (let i = 0; i < this.cells.length; i++) {
+                  this.nextGeneration[i]=[]
                       for (let j = 0; j < this.cells[i].length; j++) {
-                          this.nextGeneration.push(this.computeCellNextState(i, j))
+                          this.nextGeneration[i].push(this.computeCellNextState(i, j))
                       }
                   }
-console.log(this.nextGeneration)
+            this.printNextGeneration()
 
+        }
+        this.printNextGeneration=()=>{
+            for(let i=0;i<this.nextGeneration.length;i++){
+                for(let j=0;j<this.nextGeneration[i].length;j++){
+                    this.nextGeneration[i][j]?this.cells[i][j].className="live":this.cells[i][j].className=""
+                }
+
+            }
         }
 
 
     }
 
-    let game = new GameOfLife(10, 10);
+    let game = new GameOfLife(20, 10);
 
     game.createBoard();
     console.log(game.cells[3][3]);
