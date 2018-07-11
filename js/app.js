@@ -3,7 +3,6 @@ addEventListener("DOMContentLoaded", function (event) {
         this.width = boardWidth;
         this.height = boardHeight;
         this.board = document.getElementById("board");
-        this.sum = boardHeight * boardWidth;
         this.cells = [];
 
         this.createBoard = () => {
@@ -16,7 +15,7 @@ addEventListener("DOMContentLoaded", function (event) {
                     this.board.appendChild(singleDiv);
                     this.cells[i].push(singleDiv);
                     singleDiv.addEventListener("click", function () {
-                        (singleDiv.className == "live") ? singleDiv.classList.remove("live") : singleDiv.classList.add("live");
+                        (singleDiv.className === "live") ? singleDiv.classList.remove("live") : singleDiv.classList.add("live");
                     })
                 }
             }
@@ -117,10 +116,25 @@ addEventListener("DOMContentLoaded", function (event) {
     let game = new GameOfLife(20, 10);
 
     game.createBoard();
-    console.log(game.cells[3][3]);
     game.firstGlider()
-    game.computeCellNextState(3, 3)
-    game.computeNextGeneration()
+
+    let pause=document.getElementById("pause")
+    let play=document.getElementById("play")
+
+
+    play.addEventListener("click",function(){
+      if(play.innerText="play"){
+          let timer=setInterval(function(){
+              game.computeNextGeneration()
+          },1000)
+          play.innerText="pause"
+      }else if(play.innerText="pause"){
+          clearInterval(timer)
+          play.innerText="play"
+      }
+
+    })
+
 
 
 });
