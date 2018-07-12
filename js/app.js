@@ -113,26 +113,22 @@ addEventListener("DOMContentLoaded", function (event) {
 
     }
 
-    let game = new GameOfLife(20, 10);
+    let game = new GameOfLife(50, 50);
 
     game.createBoard();
     game.firstGlider()
 
     let pause=document.getElementById("pause")
     let play=document.getElementById("play")
-
+    let timer;
 
     play.addEventListener("click",function(){
-      if(play.innerText="play"){
-          let timer=setInterval(function(){
+           timer=setInterval(()=>{
               game.computeNextGeneration()
-          },1000)
-          play.innerText="pause"
-      }else if(play.innerText="pause"){
-          clearInterval(timer)
-          play.innerText="play"
-      }
-
+          },500)
+      })
+    pause.addEventListener("click", function () {
+        clearInterval(timer)
     })
 
 
