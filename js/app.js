@@ -60,22 +60,22 @@ addEventListener("DOMContentLoaded", function (event) {
                 count++
             }
 
-            if (this.width-1 > y && this.cells[x][y + 1].className === "live") {
+            if (this.width - 1 > y && this.cells[x][y + 1].className === "live") {
                 count++
             }
-            if (this.height-1 > x && this.cells[x + 1][y].className === "live") {
+            if (this.height - 1 > x && this.cells[x + 1][y].className === "live") {
                 count++
             }
             if (x !== 0 && y !== 0 && this.cells[x - 1][y - 1].className === "live") {
                 count++
             }
-            if (this.width-1 > y && this.height-1 > x && this.cells[x + 1][y + 1].className === "live") {
+            if (this.width - 1 > y && this.height - 1 > x && this.cells[x + 1][y + 1].className === "live") {
                 count++
             }
-            if (x !== 0 && this.width-1 > y && this.cells[x - 1][y+1].className === "live") {
+            if (x !== 0 && this.width - 1 > y && this.cells[x - 1][y + 1].className === "live") {
                 count++
             }
-            if (y !== 0 && this.height-1> x && this.cells[x+1][y-1].className === "live") {
+            if (y !== 0 && this.height - 1 > x && this.cells[x + 1][y - 1].className === "live") {
                 count++
             }
 
@@ -91,20 +91,20 @@ addEventListener("DOMContentLoaded", function (event) {
 
 
         this.computeNextGeneration = () => {
-              this.nextGeneration = []
-                  for (let i = 0; i < this.cells.length; i++) {
-                  this.nextGeneration[i]=[]
-                      for (let j = 0; j < this.cells[i].length; j++) {
-                          this.nextGeneration[i].push(this.computeCellNextState(i, j))
-                      }
-                  }
+            this.nextGeneration = []
+            for (let i = 0; i < this.cells.length; i++) {
+                this.nextGeneration[i] = []
+                for (let j = 0; j < this.cells[i].length; j++) {
+                    this.nextGeneration[i].push(this.computeCellNextState(i, j))
+                }
+            }
             this.printNextGeneration()
 
         }
-        this.printNextGeneration=()=>{
-            for(let i=0;i<this.nextGeneration.length;i++){
-                for(let j=0;j<this.nextGeneration[i].length;j++){
-                    this.nextGeneration[i][j]?this.cells[i][j].className="live":this.cells[i][j].className=""
+        this.printNextGeneration = () => {
+            for (let i = 0; i < this.nextGeneration.length; i++) {
+                for (let j = 0; j < this.nextGeneration[i].length; j++) {
+                    this.nextGeneration[i][j] ? this.cells[i][j].className = "live" : this.cells[i][j].className = ""
                 }
 
             }
@@ -118,19 +118,33 @@ addEventListener("DOMContentLoaded", function (event) {
     game.createBoard();
     game.firstGlider()
 
-    let pause=document.getElementById("pause")
-    let play=document.getElementById("play")
-    let timer;
+    let play = document.querySelector(".play")
+    let forward = document.querySelector("#forward")
+    let backward = document.querySelector("#backward")
+    let intervalId;
+    let timer = 500;
 
-    play.addEventListener("click",function(){
-           timer=setInterval(()=>{
-              game.computeNextGeneration()
-          },500)
-      })
-    pause.addEventListener("click", function () {
-        clearInterval(timer)
+interval=(timer)=>{
+    clearInterval(intervalId)
+    play.classList == "play" ? intervalId = setInterval(() => {
+        game.computeNextGeneration()
+    }, timer) : clearInterval(intervalId);
+}
+
+    play.addEventListener("click", function () {
+       interval(timer)
+        play.classList.toggle("stop");
+        play.classList.toggle("play");
     })
 
+    forward.addEventListener("click", function () {
+        timer > 100 ? timer -= 100 : timer=100
+        interval(timer)
+    })
+    backward.addEventListener("click", function () {
+        timer < 1000 ? timer += 100 : timer=1000
+        interval(timer)
+    })
 
 
 });

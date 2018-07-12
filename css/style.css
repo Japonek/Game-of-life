@@ -3,8 +3,8 @@
 }
 
 body {
-    background-image: url("../life.jpg");
-    background-size: 100% 100% ;
+    background-image: url("../img/life.jpg");
+    background-size: cover ;
     background-repeat: no-repeat;
     bac;
     height:100vh;
@@ -35,23 +35,31 @@ body {
 }
 
 #game-menu {
-    margin: 0 auto ;
+
     width: auto;
+    margin: 0 auto ;
 }
-#play{
-   display: flex;
-    justify-content: center;
-    align-items: center;
+.play{
+    display: inline-block;
     width: 50px;
     height: 50px;
-    background-color: green;
-    border-radius: 50%;
+   background-image: url("../img/play-circle-solid.svg");
 }
-#triangle{
-
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 0 10px 20px;
-    border-color: transparent transparent transparent #ffffff;
+.stop {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/stop-circle-solid.svg");
+}
+#forward {
+    display: inline-block;
+    width:50px;
+    height: 50px;
+    background-image: url("../img/forward-solid.svg");
+}
+#backward{
+    display: inline-block;
+    width:50px;
+    height: 50px;
+    background-image: url("../img/backward-solid.svg");
 }
